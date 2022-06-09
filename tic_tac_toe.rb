@@ -22,4 +22,19 @@ class Game
     @player1 = player1
     @player2 = player2
   end
+
+  private
+  
+  def print_board
+    0.upto(@board.length-2) do |row|
+     0.upto(@board[row].length-2) do |i|
+      print "#{@board[row][i]} | "
+     end
+     puts
+     puts '--' * @board.length
+    end
+    0.upto(@board[-1].length-2) do |i| # Print the last row
+      print "#{@board[-1][i]} | "
+     end
+  end
 end
