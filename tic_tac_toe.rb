@@ -37,7 +37,9 @@ class Game
   def win?(player)
     if [win_row?(player), win_column?(player), win_diagonal?(player)].any?
       print_board
-      puts "#{player.name} wins!"
+      player.wins += 1
+      player.next.losses += 1
+      puts "#{player.name} wins! Score: #{player.wins} - #{player.losses}"
       true
     else
       false
@@ -135,8 +137,12 @@ class Game
   end
 end
 
-player1 = Player.new('John', 'O')
-player2 = Player.new('Marc', 'X')
+print "Player1's name: "
+p1_name = gets
+print "Player2's name: "
+p2_name = gets
+player1 = Player.new(p1_name, 'O')
+player2 = Player.new(p2_name, 'X')
 game = Game.new(player1, player2)
 
 game.start
