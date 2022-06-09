@@ -24,7 +24,7 @@ class Game
   end
 
   private
-  
+
   def print_board
     0.upto(@board.length-2) do |row|
      0.upto(@board[row].length-2) do |i|
@@ -36,5 +36,17 @@ class Game
     0.upto(@board[-1].length-2) do |i| # Print the last row
       print "#{@board[-1][i]} | "
      end
+  end
+
+  def play_turn(player)
+    print_board
+    to_place = gets('Where do you want to play?').chomp.to_i
+    place_symbol(to_place, player.symbol)
+    to_play = if player.symbol == @player1.symbol
+                @player2
+              else
+                @player1
+              end
+    play_turn(to_play) unless win?()
   end
 end
