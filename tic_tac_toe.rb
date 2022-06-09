@@ -55,8 +55,7 @@ class Game
         symbols << row[column_index]
       end
 
-      return true if symbols.uniq.length == 1 #Checks if column has 1 symbol across it
-
+      return true if symbols.uniq.length == 1 # Checks if column has 1 symbol across it
     end
     false
   end
@@ -66,16 +65,17 @@ class Game
 
     symbols_down = []
     0.upto(board_size-1) do |diagonal_down|
-      symbols << @board[diagonal_down][diagonal_down]
+      symbols_down << @board[diagonal_down][diagonal_down]
     end
 
     symbols_up = []
     0.upto(board_size-1) do |diagonal_up|
-      symbols << @board[diagonal_up][board_size-diagonal_up]
+      symbols_up << @board[diagonal_up][board_size-diagonal_up]
     end
 
     symbols_down.uniq.length == 1 || symbols_up.uniq.length == 1
   end
+
   def print_board
     0.upto(@board.length - 2) do |row|
       to_print = []
