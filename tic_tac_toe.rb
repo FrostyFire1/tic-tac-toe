@@ -34,8 +34,8 @@ class Game
 
   private
 
-  def win?
-    false
+  def win?(player)
+    [win_row?(player), win_column?(player), win_diagonal?(player)].any?
   end
 
   def print_board
@@ -63,17 +63,19 @@ class Game
   end
 
   def place_symbol(place_index, symbol)
-    row = (place_index / @board.length).ceil - 1
-    cell = (place_index - row*@board.length) - 1
+    row = (place_index / @board.length.to_f).ceil - 1
+    cell = (place_index - row * @board.length) - 1
+    puts row,cell
     @board[row][cell] = symbol
   end
 
   def play_turn(player)
     print_board
-    to_place = gets('Where do you want to play?').chomp.to_i
+    puts "Where do you want to play?"
+    to_place = gets.chomp.to_i
     place_symbol(to_place, player.symbol)
     to_play = player.next
-    play_turn(to_play) unless win?
+    play_turn(to_play) unless win?(player)
   end
 end
 
@@ -81,4 +83,4 @@ player1 = Player.new('John', 'O')
 player2 = Player.new('Marc', 'X')
 game = Game.new(player1, player2)
 
-game.debug
+game.start
