@@ -112,6 +112,7 @@ class Game
     cell = (place_index - row * @board.length) - 1
     [row,cell]
   end
+
   def place_symbol(row,cell, symbol)
     @board[row][cell] = symbol
   end
@@ -138,9 +139,9 @@ class Game
 end
 
 print "Player1's name: "
-p1_name = gets
+p1_name = gets.chomp
 print "Player2's name: "
-p2_name = gets
+p2_name = gets.chomp
 player1 = Player.new(p1_name, 'O')
 player2 = Player.new(p2_name, 'X')
 game = Game.new(player1, player2)
