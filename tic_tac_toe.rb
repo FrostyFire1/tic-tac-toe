@@ -62,6 +62,12 @@ class Game
     puts last_print.join('|')
   end
 
+  def place_symbol(place_index, symbol)
+    row = (place_index / @board.length).ceil - 1
+    cell = (place_index - row*@board.length) - 1
+    @board[row][cell] = symbol
+  end
+
   def play_turn(player)
     print_board
     to_place = gets('Where do you want to play?').chomp.to_i
