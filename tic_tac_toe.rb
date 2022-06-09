@@ -23,6 +23,10 @@ class Game
     @player2 = player2
   end
 
+  def start
+    play_turn(player1)
+  end
+
   private
 
   def print_board
