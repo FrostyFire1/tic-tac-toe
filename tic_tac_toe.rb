@@ -130,11 +130,20 @@ class Game
       to_play = player.next
       if !win?(player)
         play_turn(to_play)
+      else
+        ask_to_play_again
       end
     else
       puts "You can't place your symbol there! Try again."
       play_turn(player)
     end
+  end
+
+  def ask_to_play_again
+    puts "Would you like to play again? Y/y for yes, anything else for no"
+    return unless gets.chomp.downcase == 'y'
+      @board = Array.new(3) { Array.new(3) }
+      start
   end
 end
 
