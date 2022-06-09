@@ -1,5 +1,5 @@
 class Player
-  attr_accessor(:wins, :losses)
+  attr_accessor(:wins, :losses, :next)
   attr_reader(:symbol)
 
   def initialize(name, symbol)
@@ -7,6 +7,7 @@ class Player
     @wins = 0
     @losses = 0
     @symbol = symbol
+    @next = nil
   end
 end
 
@@ -21,10 +22,16 @@ class Game
     @board = Array.new(3) { Array.new(3) }
     @player1 = player1
     @player2 = player2
+    @player1.next = @player2
+    @player2.next = @player1
   end
 
   def start
     play_turn(player1)
+  end
+  
+  def debug
+    print_board
   end
 
   private
@@ -46,11 +53,13 @@ class Game
     print_board
     to_place = gets('Where do you want to play?').chomp.to_i
     place_symbol(to_place, player.symbol)
-    to_play = if player.symbol == @player1.symbol
-                @player2
-              else
-                @player1
-              end
+    to_play = player.next
     play_turn(to_play) unless win?()
   end
 end
+
+player1 = Player.new("John", "O")
+player2 = Player.new("Marc", "X")
+game = Game.new(player1, player2)
+
+game.debug
