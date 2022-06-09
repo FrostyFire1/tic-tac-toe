@@ -55,25 +55,30 @@ class Game
         symbols << row[column_index]
       end
 
-      return true if symbols.uniq.length == 1 # Checks if column has 1 symbol across it
+      if symbols.uniq.length == 1 && symbols[0] == player.symbol # Checks if column has 1 symbol across it
+        return true
+      end
     end
     false
   end
 
   def win_diagonal?(player)
-    board_size = @board.length
+    board_size = @board.length-1
 
     symbols_down = []
-    0.upto(board_size-1) do |diagonal_down|
+    0.upto(board_size) do |diagonal_down|
       symbols_down << @board[diagonal_down][diagonal_down]
     end
 
     symbols_up = []
-    0.upto(board_size-1) do |diagonal_up|
-      symbols_up << @board[diagonal_up][board_size-diagonal_up]
+    0.upto(board_size) do |diagonal_up|
+      symbols_up << @board[board_size-diagonal_up][diagonal_up]
     end
 
-    symbols_down.uniq.length == 1 || symbols_up.uniq.length == 1
+    (symbols_down.uniq.length == 1 &&
+    symbols_down[0] == player.symbol) ||
+      (symbols_up.uniq.length == 1 &&
+      symbols_up[0] == player.symbol)
   end
 
   def print_board
@@ -103,7 +108,6 @@ class Game
   def place_symbol(place_index, symbol)
     row = (place_index / @board.length.to_f).ceil - 1
     cell = (place_index - row * @board.length) - 1
-    puts row,cell
     @board[row][cell] = symbol
   end
 
