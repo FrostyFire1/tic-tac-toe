@@ -105,9 +105,12 @@ class Game
     puts last_print.join('|')
   end
 
-  def place_symbol(place_index, symbol)
+  def to_row_cell(place_index)
     row = (place_index / @board.length.to_f).ceil - 1
     cell = (place_index - row * @board.length) - 1
+    [row,cell]
+  end
+  def place_symbol(row,cell, symbol)
     @board[row][cell] = symbol
   end
 
@@ -115,9 +118,20 @@ class Game
     print_board
     puts "Where do you want to play?"
     to_place = gets.chomp.to_i
-    place_symbol(to_place, player.symbol)
-    to_play = player.next
-    play_turn(to_play) unless win?(player)
+    row,cell = to_row_cell(to_place)
+    if row.between?(0,@board.length-1) &&
+        cell.between?(0, @board.length-1) &&
+        @board[row][cell].nil?
+
+      place_symbol(row,cell, player.symbol)
+      to_play = player.next
+      if !win?(player)
+        play_turn(to_play)
+      end
+    else
+      puts "You can't place your symbol there! Try again."
+      play_turn(player)
+    end
   end
 end
 
