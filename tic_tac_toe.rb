@@ -57,7 +57,8 @@ class Game
         symbols << row[column_index]
       end
 
-      if symbols.uniq.length == 1 && symbols[0] == player.symbol # Checks if column has 1 symbol across it
+      if symbols.uniq.length == 1 && symbols[0] == player.symbol 
+        # Checks if column has 1 symbol across it
         return true
       end
     end
@@ -121,10 +122,10 @@ class Game
     print_board
     puts "Where do you want to play?"
     to_place = gets.chomp.to_i
-    row,cell = to_row_cell(to_place)
+    row, cell = to_row_cell(to_place)
     if row.between?(0,@board.length-1) &&
-        cell.between?(0, @board.length-1) &&
-        @board[row][cell].nil?
+       cell.between?(0, @board.length-1) &&
+       @board[row][cell].nil?
 
       place_symbol(row,cell, player.symbol)
       to_play = player.next
@@ -140,16 +141,17 @@ class Game
   end
 
   def ask_to_play_again
-    puts "Would you like to play again? Y/y for yes, anything else for no"
+    puts 'Would you like to play again? Y/y for yes, anything else for no'
     return unless gets.chomp.downcase == 'y'
-      @board = Array.new(3) { Array.new(3) }
-      start
+
+    @board = Array.new(3) { Array.new(3) }
+    start
   end
 end
 
-print "Player1's name: "
+print "Player #1's name: "
 p1_name = gets.chomp
-print "Player2's name: "
+print "Player #2's name: "
 p2_name = gets.chomp
 player1 = Player.new(p1_name, 'O')
 player2 = Player.new(p2_name, 'X')
