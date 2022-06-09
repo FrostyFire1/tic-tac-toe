@@ -123,8 +123,7 @@ class Game
     puts "Where do you want to play?"
     to_place = gets.chomp.to_i
     row, cell = to_row_cell(to_place)
-    if row.between?(0,@board.length-1) &&
-       cell.between?(0, @board.length-1) &&
+    if to_place.between?(1, @board.length**2)
        @board[row][cell].nil?
 
       place_symbol(row,cell, player.symbol)
