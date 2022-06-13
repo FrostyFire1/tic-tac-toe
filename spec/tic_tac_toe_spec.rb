@@ -29,6 +29,11 @@ describe Game do
         expect(tic_tac_toe).to receive(:place_symbol).with(2,2,"O")
         tic_tac_toe.send(:play_turn,player1)
       end
+
+      it "stops execution if player won" do
+        expect(tic_tac_toe).to receive(:play_turn).once
+        tic_tac_toe.send(:play_turn,player1)
+      end
     end
   end
 
