@@ -41,6 +41,44 @@ describe Game do
       end
     end
 
+    context "when player makes an invalid turn once" do
+      before do
+        invalid_input = 'a'
+        valid_input = '9'
+        allow(tic_tac_toe).to receive(:gets).and_return(invalid_input,valid_input)
+        allow(tic_tac_toe).to receive(:to_row_cell).and_return([2,2])
+        allow(tic_tac_toe).to receive(:win?).and_return(true)
+        allow(tic_tac_toe).to receive(:ask_to_play_again).and_return(nil)
+        allow(tic_tac_toe).to receive(:print_board).and_return(nil)
+      end
+      it "displays error message once" do
+        error_message = "You can't place your symbol there! Try again."
+        ask_msg = "Where do you want to play?"
+        expect(tic_tac_toe).to receive(:puts).with(ask_msg).twice
+        expect(tic_tac_toe).to receive(:puts).with(error_message).once
+        tic_tac_toe.send(:play_turn, player1)
+      end
+    end
+
+    context "when player makes an invalid turn five times" do
+      before do
+        invalid_input = 'a'
+        invalid_number = '123123'
+        valid_input = '9'
+        allow(tic_tac_toe).to receive(:gets).and_return(invalid_input,invalid_number,invalid_input,invalid_number,invalid_input,valid_input)
+        allow(tic_tac_toe).to receive(:to_row_cell).and_return([2,2])
+        allow(tic_tac_toe).to receive(:win?).and_return(true)
+        allow(tic_tac_toe).to receive(:ask_to_play_again).and_return(nil)
+        allow(tic_tac_toe).to receive(:print_board).and_return(nil)
+      end
+      it "displays error message five times" do
+        error_message = "You can't place your symbol there! Try again."
+        ask_msg = "Where do you want to play?"
+        expect(tic_tac_toe).to receive(:puts).with(ask_msg).exactly(6).times
+        expect(tic_tac_toe).to receive(:puts).with(error_message).exactly(5).times
+        tic_tac_toe.send(:play_turn, player1)
+      end
+    end
 
   end
 
