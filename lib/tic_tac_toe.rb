@@ -28,10 +28,6 @@ class Game
     play_turn(player1)
   end
 
-  def debug
-    print_board
-  end
-
   private
 
   def win?(player)
