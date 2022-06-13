@@ -34,7 +34,14 @@ describe Game do
         expect(tic_tac_toe).to receive(:play_turn).once
         tic_tac_toe.send(:play_turn,player1)
       end
+
+      it "sends message to ask_to_play_again if player won" do
+        expect(tic_tac_toe).to receive(:ask_to_play_again)
+        tic_tac_toe.send(:play_turn,player1)
+      end
     end
+
+
   end
 
   describe "#print_board" do
