@@ -119,7 +119,7 @@ class Game
     puts "Where do you want to play?"
     to_place = gets.chomp.to_i
     row, cell = to_row_cell(to_place)
-    if to_place.between?(1, @board.length**2)
+    if to_place.between?(1, @board.length**2)&&
        @board[row][cell].nil?
 
       place_symbol(row,cell, player.symbol)
@@ -144,12 +144,12 @@ class Game
   end
 end
 
-print "Player #1's name: "
-p1_name = gets.chomp
-print "Player #2's name: "
-p2_name = gets.chomp
-player1 = Player.new(p1_name, 'O')
-player2 = Player.new(p2_name, 'X')
-game = Game.new(player1, player2)
+# print "Player #1's name: "
+# p1_name = gets.chomp
+# print "Player #2's name: "
+# p2_name = gets.chomp
+# player1 = Player.new(p1_name, 'O')
+# player2 = Player.new(p2_name, 'X')
+# game = Game.new(player1, player2)
 
-game.start
+# game.start
