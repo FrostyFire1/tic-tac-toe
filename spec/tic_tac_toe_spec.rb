@@ -82,6 +82,17 @@ describe Game do
 
   end
 
+  describe "#to_row_cell" do
+    context "when given a number" do
+      it "converts it to the corresponding row and cell" do
+        to_convert = 9
+        row, cell = tic_tac_toe.send(:to_row_cell, to_convert)
+        expect(row).to eq(2)
+        expect(cell).to eq(2)
+      end
+    end
+  end
+
   describe "#print_board" do
     #Print function. Doesn't need testing.
   end
