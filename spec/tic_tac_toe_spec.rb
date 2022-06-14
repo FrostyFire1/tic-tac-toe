@@ -97,19 +97,46 @@ describe Game do
     context "when given row and cell values" do
       before do
         symbol = player1.symbol
-        tic_tac_toe.send(:place_symbol, 2, 2, symbol)
+        row = 2
+        cell = 2
+        tic_tac_toe.send(:place_symbol, row, cell, symbol)
       end
       it "place the player's symbol in the correct place on the board" do
         board_state = tic_tac_toe.instance_variable_get(:@board)
         last_cell = board_state.last.last
-        expect(last_cell).to eq(symbol)
+        expect(last_cell).to eq("O")
       end
     end
+  end
 
-    context "when row or cell is outside the board" do
+  describe "#win_row?" do
+    context "when player won by row" do
+      before do
+        board_state = [
+          ["O","O","O"],
+          [nil, nil, nil],
+          [nil, nil, nil]
+        ]
+        tic_tac_toe.instance_variable_set(:@board, board_state)
+      end
+      it "returns true" do
+        game_over = tic_tac_toe.send(:win_row?, player1)
+        expect(game_over).to be true
+      end
+    end
+    context "when player didn't win by row" do
+      before do
+        board_state = [
+          ["O","O",nil],
+          [nil, "O", nil],
+          ["O", nil, nil]
+        ]
+        tic_tac_toe.instance_variable_set(:@board, board_state)
+      end
 
-      it "doesn't modify the board" do
-
+      it "returns false" do
+        game_over = tic_tac_toe.send(:win_row?, player1)
+        expect(game_over).to be false
       end
     end
   end
