@@ -173,7 +173,7 @@ describe Game do
     end
   end
 
-  describe "#win_row?" do
+  describe "#win_diagonal?" do
     context "when player won diagonally up" do
       before do
         board_state = [
