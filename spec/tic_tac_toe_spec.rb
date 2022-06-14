@@ -173,6 +173,54 @@ describe Game do
     end
   end
 
+  describe "#win_row?" do
+    context "when player won diagonally up" do
+      before do
+        board_state = [
+          ["O",nil,"O"],
+          [nil, "O", nil],
+          ["O", nil, nil]
+        ]
+        tic_tac_toe.instance_variable_set(:@board, board_state)
+      end
+      it "returns true" do
+        game_over = tic_tac_toe.send(:win_diagonal?, player1)
+        expect(game_over).to be true
+      end
+    end
+    context "when player won diagonally down" do
+      before do
+        board_state = [
+          ["O","O",nil],
+          [nil, "O", nil],
+          ["O", nil, "O"]
+        ]
+        tic_tac_toe.instance_variable_set(:@board, board_state)
+      end
+
+      it "returns true" do
+        game_over = tic_tac_toe.send(:win_diagonal?, player1)
+        expect(game_over).to be true
+      end
+    end
+
+    context "when player didn't win diagonally" do
+      before do
+        board_state = [
+          ["O","O",nil],
+          [nil, nil, nil],
+          ["O", nil, "O"]
+        ]
+        tic_tac_toe.instance_variable_set(:@board, board_state)
+      end
+
+      it "returns false" do
+        game_over = tic_tac_toe.send(:win_diagonal?, player1)
+        expect(game_over).to be false
+      end
+    end
+  end
+
   describe "#print_board" do
     #Print function. Doesn't need testing.
   end
