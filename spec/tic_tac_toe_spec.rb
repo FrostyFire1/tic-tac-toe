@@ -93,6 +93,27 @@ describe Game do
     end
   end
 
+  describe "#place_symbol" do
+    context "when given row and cell values" do
+      before do
+        symbol = player1.symbol
+        tic_tac_toe.send(:place_symbol, 2, 2, symbol)
+      end
+      it "place the player's symbol in the correct place on the board" do
+        board_state = tic_tac_toe.instance_variable_get(:@board)
+        last_cell = board_state.last.last
+        expect(last_cell).to eq(symbol)
+      end
+    end
+
+    context "when row or cell is outside the board" do
+
+      it "doesn't modify the board" do
+
+      end
+    end
+  end
+
   describe "#print_board" do
     #Print function. Doesn't need testing.
   end
